@@ -5,7 +5,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "compass-validator"
-    gem.summary = %Q{TODO}
+    gem.summary = %Q{A CSS Validator that is used by the Compass CSS Framework.}
     gem.email = "chris@eppsteins.net"
     gem.homepage = "http://github.com/chriseppstein/compass-validator"
     gem.authors = ["Chris Eppstein"]

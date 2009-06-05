@@ -1,7 +1,0 @@
-= compass-validator
-
-Description goes here.
-
-== Copyright
-
-Copyright (c) 2009 Chris Eppstein. See LICENSE for details.
