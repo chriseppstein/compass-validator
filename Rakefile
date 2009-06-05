@@ -9,7 +9,12 @@ begin
     gem.email = "chris@eppsteins.net"
     gem.homepage = "http://github.com/chriseppstein/compass-validator"
     gem.authors = ["Chris Eppstein"]
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    gem.files = []
+    gem.files << "LICENSE"
+    gem.files << "Rakefile"
+    gem.files << "README.markdown"
+    gem.files << "VERSION.yml"
+    gem.files += Dir.glob("lib/**/*")
   end
 
 rescue LoadError
