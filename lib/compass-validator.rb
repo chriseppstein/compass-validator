@@ -4,7 +4,8 @@ require File.join(Compass.lib_directory, 'compass', 'core_ext')
 module Compass
   # Validates generated CSS against the W3 using Java
   class Validator
-    VALIDATOR_FILE = File.join(File.dirname(__FILE__), 'java_validator', 'css-validator.jar')
+    VALIDATOR_DIR = File.join(File.dirname(__FILE__), 'java_validator')
+    VALIDATOR_FILE = File.join(VALIDATOR_DIR, 'css-validator.jar')
     attr_reader :error_count
     attr_reader :css_directory
     
@@ -30,8 +31,11 @@ module Compass
     private
     def validate_css_file(java_path, css_file)
       puts "\n\nTesting #{css_file}"
+      jars = Dir.glob("#{VALIDATOR_DIR}/*.jar") - [VALIDATOR_FILE]
+      cmd = "#{java_path} -jar '#{VALIDATOR_FILE}' -classpath '#{jars.join(File::PATH_SEPARATOR)}' -e '#{css_file}'"
+      puts "Running: #{cmd}\n"
       puts "Output ============================================================\n\n"
-      system("#{java_path} -jar '#{VALIDATOR_FILE}' -e '#{css_file}'")
+      system("#{java_path} -jar '#{VALIDATOR_FILE}' -classpath '#{Dir.glob("#{VALIDATOR_DIR}/*.jar").join(":")}' -e '#{css_file}'")
     end
     
     def output_header
