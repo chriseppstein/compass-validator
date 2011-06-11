@@ -1,6 +1,5 @@
 # This file was extracted from the blueprint project and then modified.
 require "open3"
-require File.join(Compass.lib_directory, 'compass', 'core_ext')
 
 module Compass
   # Validates generated CSS against the W3 using Java
@@ -30,7 +29,7 @@ module Compass
     # Validates all three CSS files
     def validate
       java_path = `which java`.rstrip
-      raise "You do not have a Java installed, but it is required." if java_path.blank?
+      raise "You do not have a Java installed, but it is required." unless java_path && !java_path.empty?
     
       Dir.glob(File.join(css_directory, "**", "*.css")).each do |file_name|
         @files += 1
