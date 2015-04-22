@@ -1,5 +1,6 @@
 # This file was extracted from the blueprint project and then modified.
 require "open3"
+require "rbconfig"
 
 module Compass
   # Validates generated CSS against the W3 using Java
@@ -28,7 +29,14 @@ module Compass
 
     # Validates all three CSS files
     def validate
-      java_path = `which java`.rstrip
+      if (!(RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/))
+		    java_path = `which java`.rstrip
+	    else
+		    java_path = `where java`.rstrip
+		    if (!java_path || java_path.empty?)
+		      java_path = `WHERE /R C:\\ java`.rstrip
+		    end
+	    end
       raise "You do not have a Java installed, but it is required." unless java_path && !java_path.empty?
     
       Dir.glob(File.join(css_directory, "**", "*.css")).each do |file_name|
